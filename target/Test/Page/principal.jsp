@@ -1,11 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: joaov
-  Date: 30/05/2024
-  Time: 09:22
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="br">
 <head>
@@ -13,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="estilo.css">
 
     <title>AdminHub</title>
 </head>
@@ -102,7 +94,7 @@
             <span class="num">8</span>
         </a>
         <a href="#" class="profile">
-            <img src="/image/icone%20administrador.jpg">
+            <img src="/image/icon%20administrador.jpg" alt="">
         </a>
     </nav>
     <!-- BARRA DE NAVEGAÇÃO -->
@@ -175,7 +167,7 @@
                         <tbody>
                         <tr>
                             <td>
-                                <img src="/image/icon%20morador.png">
+                                <img src="/image/icon%20morador.png" alt="">
                                 <p>Arthur Gabriel</p>
                             </td>
                             <td>01-10-2021</td>
@@ -183,7 +175,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <img src="/image/icon%20morador.png">
+                                <img src="/image/icon%20morador.png" alt="">
                                 <p>João Guilherme</p>
                             </td>
                             <td>01-10-2021</td>
@@ -191,7 +183,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <img src="/image/icon%20morador.png">
+                                <img src="/image/icon%20morador.png" alt="">
                                 <p>Pedro Henrique</p>
                             </td>
                             <td>01-10-2021</td>
@@ -199,7 +191,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <img src="/image/icone%20morador%20feminino.png">
+                                <img src="/image/icon%20morador%20feminino.png" alt="">
                                 <p>Maria Eduarda</p>
                             </td>
                             <td>01-10-2021</td>
@@ -207,7 +199,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <img src="/image/icone%20morador%20feminino.png">
+                                <img src="/image/icon%20morador%20feminino.png">
                                 <p>Manuela Costa</p>
                             </td>
                             <td>01-10-2021</td>
@@ -638,7 +630,6 @@
                                         </div>
                                     </main>
                                     <section>
-
                                         <script src="script.js"></script>
 </body>
 
