@@ -60,4 +60,22 @@ public class UsuarioDao {
 
 
     }
+    public void cadastroOcorrencia(Usuario ocorrencia) {
+        PreparedStatement ps = null;
+
+        try {
+            String sql = "INSERT INTO Ocorrencia (Nome, Tipo, Descricao) VALUES (?, ?, ?)";
+            ps = Conexao.getConnection().prepareStatement(sql);
+            ps.setString(1, ocorrencia.getNome());
+            ps.setString(2, ocorrencia.getTipo());
+            ps.setString(3, ocorrencia.getDescricao());
+
+            ps.execute();
+            ps.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
+

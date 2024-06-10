@@ -8,6 +8,8 @@ public class Usuario {
     private String  nome;
     private String senha;
     private String telefone;
+    private String tipo;
+    private String descricao;
 
     public String getCpf() {
         return cpf;
@@ -49,6 +51,22 @@ public class Usuario {
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 }
 
