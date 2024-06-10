@@ -10,6 +10,14 @@ public class Usuario {
     private String telefone;
     private String tipo;
     private String descricao;
+    private String data;
+    private String hora;
+    private String informacao;
+    private String solicitar;
+    private String apartamento;
+    private String dia;
+    private String permissao;
+    private String pessoa;
 
     public String getCpf() {
         return cpf;
@@ -67,6 +75,72 @@ public class Usuario {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
+    }
+
+    public String getHora() {
+        return hora;
+    }
+
+    public void setHora(String hora) {
+        this.hora = hora;
+    }
+
+    public String getInformacao() {
+        return informacao;
+    }
+
+    public void setInformacao(String informacao) {
+        this.informacao = informacao;
+    }
+
+    public String getSolicitar() {
+        return solicitar;
+    }
+
+    public void setSolicitar(String solicitar) {
+        this.solicitar = solicitar;
+    }
+
+
+    public String getDia() {
+        return dia;
+    }
+
+    public void setDia(String dia) {
+        this.dia = dia;
+    }
+
+    public String getPermissao() {
+        return permissao;
+    }
+
+    public void setPermissao(String permissao) {
+        this.permissao = permissao;
+    }
+
+
+    public String getApartamento() {
+        return apartamento;
+    }
+
+    public void setApartamento(String apartamento) {
+        this.apartamento = apartamento;
+    }
+
+    public String getPessoa() {
+        return pessoa;
+    }
+
+    public void setPessoa(String pessoa) {
+        this.pessoa = pessoa;
     }
 }
 

@@ -64,11 +64,11 @@ public class CadastrarServlet extends HttpServlet {
 
             // Handle registration success or failure
             if (cadastrar) {
-                RequestDispatcher rd = request.getRequestDispatcher("/cadastrar.html"); // Replace with your success page path
+                RequestDispatcher rd = request.getRequestDispatcher("/index.jsp"); // Replace with your success page path
                 rd.forward(request, response);
             } else {
                 request.setAttribute("erroCadastro", "Erro ao cadastrar usuário. Tente novamente.");
-                RequestDispatcher rd = request.getRequestDispatcher("/cadastrar.html"); // Replace with your registration form path
+                RequestDispatcher rd = request.getRequestDispatcher("/index.jsp"); // Replace with your registration form path
                 rd.forward(request, response);
             }
 

@@ -10,8 +10,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-@WebServlet (name = "OcorrenciaServlet", urlPatterns = {"/OcorrenciaServlet"})
-public class OcorrenciaServlet extends HttpServlet {
+@WebServlet (name="SolicitarServlet", urlPatterns = {"/SolicitarServlet"})
+public class SolicitarServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
@@ -19,8 +19,8 @@ public class OcorrenciaServlet extends HttpServlet {
         String path = request.getServletPath();
 
         try {
-            if (path.equals("/OcorrenciaServlet")) {
-                cadastroOcorrencia(request, response);
+            if (path.equals("/SolicitarServlet")) {
+                cadastroSolicitar(request, response);
             } else {
                 response.sendError(HttpServletResponse.SC_NOT_FOUND, "Endpoint not found");
             }
@@ -28,22 +28,30 @@ public class OcorrenciaServlet extends HttpServlet {
             e.printStackTrace();
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An internal server error occurred");
         }
+
     }
 
-    private void cadastroOcorrencia(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void cadastroSolicitar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String nome = request.getParameter("nome");
-        String tipo = request.getParameter("tipo");
-        String descricao = request.getParameter("descricao");
+        String data = request.getParameter("data");
+        String hora = request.getParameter("hora");
+        String solicitar = request.getParameter("solicitar");
+        String informacao = request.getParameter("informacao");
 
-        Usuario ocorrencia = new Usuario();
-        ocorrencia.setNome(nome);
-        ocorrencia.setTipo(tipo);
-        ocorrencia.setDescricao(descricao);
+          Usuario Solicitar = new Usuario();
+          Solicitar.setNome(nome);
+          Solicitar.setData(data);
+          Solicitar.setHora(hora);
+          Solicitar.setSolicitar(solicitar);
+          Solicitar.setInformacao(informacao);
 
-        UsuarioDao usuarioDAO = new UsuarioDao();
+        UsuarioDao usuarioDao = new UsuarioDao();
 
-        usuarioDAO.cadastroOcorrencia(ocorrencia);
+        usuarioDao.cadastroSolicitar(Solicitar);
+
         RequestDispatcher rd = request.getRequestDispatcher("/Page/usuario.jsp");
         rd.forward(request, response);
     }
+
+
 }

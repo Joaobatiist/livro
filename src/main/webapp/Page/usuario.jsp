@@ -1,4 +1,6 @@
 <%@ page import="Entidade.Usuario" %>
+<%@ page import="Dao.UsuarioDao" %>
+<%@ page import="java.util.ArrayList" %>
 <!DOCTYPE html>
 <html lang="br">
 <head>
@@ -20,7 +22,7 @@
     <ul class="side-menu top">
         <li class="active">
             <a href="#" onclick="showContent('Noticias-content')">
-                <i class='bx bxs-dashboard' ></i>
+                <i class='bx bxs-home' ></i>
                 <span class="text">Noticias</span>
             </a>
         </li>
@@ -28,6 +30,12 @@
             <a href="#" onclick="showContent('encomenda-content')">
                 <i class='bx bxs-shopping-bag-alt' ></i>
                 <span class="text">Encomendas</span>
+            </a>
+        </li>
+        <li>
+            <a href="#" onclick="showContent('Visita-content')">
+                <i class='bx bxs-user' ></i>
+                <span class="text">Visita</span>
             </a>
         </li>
         <li>
@@ -79,8 +87,6 @@
                 <button type="button" class="search-btn"><i class='bx bx-search' ></i></button>
             </div>
         </form>
-        <input type="checkbox" id="switch-mode" hidden>
-        <label for="switch-mode" class="switch-mode"></label>
         <a href="#" class="notification">
             <i class='bx bxs-bell' ></i>
             <span class="num">1</span>
@@ -120,7 +126,7 @@
                     <i class='bx bxs-group' ></i>
                     <span class="text">
                         <h3>3</h3>
-                        <p>Liberaçäo</p>
+                        <p>Liberacao</p>
                     </span>
                 </li>
             </ul>
@@ -128,46 +134,72 @@
             <div class="table-data">
                 <div class="order">
                     <div class="head">
-                        <h3>Solicitações</h3>
+                        <h3>Solicitacoes</h3>
                         <p>Aqui você agenda nosso serviços</p>
 
                     </div>
-                    <table>
-                        <thead>
-                        <tr>
-                            <th>Moradores</th>
-                            <th>Data da Solicitação</th>
-                            <th>Status</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>
-                                <ul class="bx bxs-group"></ul>
-                                <p>Pedro Henrique</p>
-                            </td>
-                            <td>01-10-2021</td>
-                            <td><span class="status process">Pendente</span></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <ul class="bx bxs-group"></ul>
-                                <p>Maria Eduarda</p>
-                            </td>
-                            <td>01-10-2021</td>
-                            <td><span class="status pending">Pendente</span></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <ul class="bx bxs-group"></ul>
-                                <p>Manuela Costa</p>
-                            </td>
-                            <td>01-10-2021</td>
-                            <td><span class="status completed">Aceito</span></td>
-                        </tr>
-                        </tbody>
-                    </table>
+                    <form action="SolicitarServlet" method="Post">
+                        <table>
+
+                            <tr>
+                                <th>Nome</th>
+                                <th>Data</th>
+                                <th>Hora</th>
+                                <th>Solicitacao</th>
+                                <th>Informacoes</th>
+                            </tr>
+                            <%
+                                UsuarioDao b = new UsuarioDao();
+                                ArrayList<Usuario> list = new ArrayList<Usuario>();
+
+                                list = b.consultar();
+                                for (Usuario a : list){
+
+                            %>
+                            <tr>
+                                <td><%= a.getNome() %></td>
+                                <td><%= a.getData() %></td>
+                                <td><%= a.getHora() %></td>
+                                <td><%= a.getSolicitar() %></td>
+                                <td><%= a.getInformacao() %></td>
+                            </tr>
+                            <%
+                                }
+                            %>
+                        </table>
+                    </form>
                 </div>
+                <div class="container">
+                    <h2>Solicitacao</h2>
+                    <form id="solicitar-form" action="SolicitarServlet" method="post">
+                        <div class="form-group">
+                            <label for="nome">Nome:</label>
+                            <input type="text" id="name" name="nome" required>
+
+                            <label for="data">Selecione uma data:</label>
+                            <input type="date" id="data" name="data">
+
+                            <label for="hora">Selecione uma hora:</label>
+                            <input type="time" id="hora" name="hora">
+
+                            <div class="form-group">
+                                <label for="solicitar">Tipo de solicitacao:</label>
+                                <select id="solicitar" name="solicitar" required>
+                                    <option value="">Selecione</option>
+                                    <option value="piscina">Piscina</option>
+                                    <option value="churrasqueira">Churrasqueira</option>
+                                    <option value="Quadra">Quadra</option>
+                                    <option value="outro">Outro</option>
+                                </select>
+                                <label for="informacao">informacao:</label>
+                                <textarea id="informacao" name="informacao" rows="4" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit">Enviar</button>
+                            </div>
+                    </form>
+                </div>
+            </main>
     </section>
 
     <!-- Conteúdo das Entregas -->
@@ -269,7 +301,49 @@
             </div>
         </main>
     </section>
+<section id="Visita-content" class="content-item">
+<main>
+    <div class="head-title">
+        <div class="left">
+            <h1>Visita</h1>
+            <ul class="breadcrumb">
+                <li>
+                    <a href="#">Visita</a>
+                </li>
+                <li><i class='bx bx-chevron-right' ></i></li>
+                <li>
+                    <a class="active" href="#">Home</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="container">
+        <h2>Visita</h2>
+        <form id="visita-form" action="VisitaServlet" method="post">
+            <div class="form-group">
+                <label for="pessoa">Nome do Visitante:</label>
+                <input type="text" id="pessoa" name="pessoa" required>
 
+                <label for="apartamento">Andar e bloco do apartamento:</label>
+                <input type="text" id="apartamento" name="apartamento" required>
+
+                <label for="dia">Selecione uma data:</label>
+                <input type="date" id="dia" name="dia">
+
+                <label for="cpf">Cpf do visitante:</label>
+                <input type="text" id="cpf" name="cpf">
+
+                <div class="form-group">
+                    <label for="permissao">informar o tipo de visita:</label>
+                    <textarea id="permissao" name="permissao" rows="4" required></textarea>
+                </div>
+                <div class="form-group">
+                    <button type="submit">Enviar</button>
+                </div>
+        </form>
+    </div>
+</main>
+</section>
     <!-- Conteúdo das Ocorrências -->
     <section id="ocorrencias-content" class="content-item">
         <main>
@@ -403,15 +477,6 @@
 
         menuBar.addEventListener('click', function () {
             sidebar.classList.toggle('hide');
-        })
-        const switchMode = document.getElementById('switch-mode');
-
-        switchMode.addEventListener('change', function () {
-            if(this.checked) {
-                document.body.classList.add('dark');
-            } else {
-                document.body.classList.remove('dark');
-            }
         })
     </script>
 </body>
@@ -854,7 +919,125 @@
         color: var(--dark);
     }
 
+    :root {
+        --background-light: #fff;
+        --background-dark: #333;
+        --text-light: #000;
+        --text-dark: #fff;
+        --primary-light: #28a745;
+        --primary-dark: #218838;
+        --border-light: #ccc;
+        --border-dark: #444;
+    }
 
+    body.dark-mode {
+        --background-light: #333;
+        --background-dark: #fff;
+        --text-light: #fff;
+        --text-dark: #000;
+        --primary-light: #218838;
+        --primary-dark: #28a745;
+        --border-light: #444;
+        --border-dark: #ccc;
+    }
+
+    body {
+        background-color: var(--background-light);
+        color: var(--text-light);
+    }
+
+    .container {
+        width: 50%;
+        background: var(--background-light);
+        padding: 50px;
+        border-radius: 50px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        position: relative;
+        color: var(--text-light);
+    }
+
+    .table-data {
+        width: 100%;
+    }
+
+    .table-data .order {
+        margin-top: 20px;
+    }
+
+    .table-data .order .head {
+        margin-bottom: 20px;
+    }
+
+    .table-data .order .head h3 {
+        margin: 0;
+        font-size: 24px;
+        color: var(--text-light);
+    }
+
+    .table-data .order .head p {
+        margin: 5px 0 0;
+        font-size: 14px;
+        color: var(--text-light);
+    }
+
+    .table-data .order table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: var(--background-light);
+        color: var(--text-light);
+    }
+
+    .table-data .order table th,
+    .table-data .order table td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid var(--border-light);
+        font-size: 13px;
+        height: 75px; /* Define a altura fixa das células */
+    }
+
+    .table-data .order table th {
+        background-color: var(--background-dark);
+        color: var(--text-dark);
+    }
+
+    .table-data .order table tr:nth-child(even) {
+        background-color: var(--border-light);
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        color: var(--text-light);
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid var(--border-light);
+        border-radius: 4px;
+        background-color: var(--background-light);
+        color: var(--text-light);
+    }
+
+    .form-group button {
+        padding: 10px 20px;
+        border: none;
+        background: var(--primary-light);
+        color: var(--text-light);
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .form-group button:hover {
+        background: var(--primary-dark);
+    }
 
 
 
