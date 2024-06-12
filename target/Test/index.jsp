@@ -1,4 +1,4 @@
-
+<%@ page contentType="text/html; charset=UTF-8" %>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -19,93 +19,48 @@
             <button id="signin" class="btn btn-primary">entrar</button>
         </div>
         <div class="second-column">
-            <h2 class="title title-second">criar uma conta</h2>
+            <h2 class="title title-second">Sobre o Condflow</h2>
+            <p class="p">O Condflow é mais que um simples condomínio. É um ambiente inteligente que proporciona aos seus moradores uma experiência única de praticidade e eficiência. Com o Condflow, os usuários têm à sua disposição uma plataforma intuitiva e acessível, onde podem facilmente registrar reclamações, elogios e fazer solicitações diretamente ao síndico e à equipe responsável pela administração do condomínio.</p>
             <div class="social-media">
-                <ul class="list-social-media">
-                    <a class="link-social-media" href="https://www.facebook.com">
-                        <li class="item-social-media">
-                            <i class="fab fa-facebook-f"></i>
-                        </li>
-                    </a>
-                    <a class="link-social-media" href="https://www.google.com/intl/pt-BR/gmail/about/">
-                        <li class="item-social-media">
-                            <i class="fab fa-google-plus-g"></i>
-                        </li>
-                    </a>
-                    <a class="link-social-media" href="https://www.linkedin.com/home">
-                        <li class="item-social-media">
-                            <i class="fab fa-linkedin-in"></i>
-                        </li>
-                    </a>
-                </ul>
+
             </div><!-- social media -->
-            <p class="description description-second">ou use seu e-mail para inscrição:</p>
-            <form class="form" action="cadastrar" method="POST">
-                <label class="label-input" for="nome">
-                    <i class="far fa-user icon-modify"></i>
-                    <input type="text" id="nome" name="nome" placeholder="Nome">
-                    <span class="error-message"></span> </label>
-
-                <label class="label-input" for="email">
-                    <i class="far fa-envelope icon-modify"></i>
-                    <input type="email" id="email" name="email" placeholder="Email">
-                    <span class="error-message"></span>
-                </label>
-                <label class="label-input" for="cpf">
-                    <i class="fas fa-address-card icon-modify"></i>
-                    <input type="text" id="cpf" name="cpf" placeholder="CPF">
-                    <span class="error-message"></span>
-                </label>
-                <label class="label-input" for="telefone">
-                    <i class="fas fa-phone icon-modify"></i>
-                    <input type="text" id="telefone" name="telefone" placeholder="Telefone">
-                    <span class="error-message"></span>
-                </label>
-                <label class="label-input" for="senha">
-                    <i class="fas fa-lock icon-modify"></i>
-                    <input type="password" id="senha" name="senha" placeholder="Senha">
-                    <span class="error-message"></span>
-                    <script>
-                        const form = document.querySelector('.form');
-                        const inputFields = form.querySelectorAll('input[type="text"], input[type="email"], input[type="password"]');
-
-                        // Function to display or hide error message
-                        function toggleErrorMessage(input, message) {
-                            const errorMessage = input.nextElementSibling; // Get the error message span
-                            errorMessage.textContent = message; // Set the error message content
-                            errorMessage.classList.toggle('active', message.length > 0); // Toggle visibility based on message length
-                        }
-
-                        // Check for empty fields on submit
-                        form.addEventListener('submit', (event) => {
-                            let hasEmptyField = false;
-                            inputFields.forEach((input) => {
-                                const value = input.value.trim(); // Trim leading/trailing spaces
-                                if (value === '') {
-                                    toggleErrorMessage(input, 'Este campo é obrigatório'); // Set error message
-                                    hasEmptyField = true; // Flag for preventing form submission
-                                } else {
-                                    toggleErrorMessage(input, ''); // Clear any previous error message
-                                }
-                            });
-
-                            if (hasEmptyField) {
-                                event.preventDefault(); // Prevent form submission if there are empty fields
-                            }
-                        });
-                    </script>
-                </label>
-
-                <button class="btn btn-second">registrar</button>
-            </form>
         </div>
+        <script>
+            const form = document.querySelector('.form');
+            const inputFields = form.querySelectorAll('input[type="text"], input[type="email"], input[type="password"]');
+
+            // Function to display or hide error message
+            function toggleErrorMessage(input, message) {
+                const errorMessage = input.nextElementSibling; // Get the error message span
+                errorMessage.textContent = message; // Set the error message content
+                errorMessage.classList.toggle('active', message.length > 0); // Toggle visibility based on message length
+            }
+
+            // Check for empty fields on submit
+            form.addEventListener('submit', (event) => {
+                let hasEmptyField = false;
+                inputFields.forEach((input) => {
+                    const value = input.value.trim(); // Trim leading/trailing spaces
+                    if (value === '') {
+                        toggleErrorMessage(input, 'Este campo é obrigatório'); // Set error message
+                        hasEmptyField = true; // Flag for preventing form submission
+                    } else {
+                        toggleErrorMessage(input, ''); // Clear any previous error message
+                    }
+                });
+
+                if (hasEmptyField) {
+                    event.preventDefault(); // Prevent form submission if there are empty fields
+                }
+            });
+        </script>
     </div>
     <div class="content second-content">
         <div class="first-column">
             <h2 class="title title-primary">olá amigo!</h2>
-            <p class="description description-primary">Insira seus dados pessoais</p>
-            <p class="description description-primary">e comece a jornada conosco</p>
-            <button id="signup" class="btn btn-primary">inscrever-se</button>
+            <p class="description description-primary">Bem vindo ao condflow</p>
+            <p class="description description-primary">clique e venha conhecer a sua jornada conosco</p>
+            <button id="signup" class="btn btn-primary">Passar</button>
         </div>
         <div class="second-column">
             <h2 class="title title-second">faça login no desenvolvedor</h2>
@@ -221,18 +176,34 @@
     }
     .title-second {
         color: #58af9b;
+
     }
+.p{
+    width: 75%;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    margin: 30px 0;
+    color: #0C0C1E;
+    position: relative;
+    left: 1%;
+}
+
+
     .description {
         font-size: 14px;
         font-weight: 300;
         line-height: 30px;
+
     }
     .description-primary {
         color: #ffffff;
     }
     .description-second {
         color: #7f8c8d;
+
     }
+
     .btn {
         border-radius: 15px;
         text-transform: uppercase;
@@ -335,6 +306,38 @@
         color: #7f8c8d;
         padding: 0 5px;
     }
+    /* Adicione essas regras ao seu arquivo CSS existente */
+
+    .label-input select {
+        height: 45px;
+        width: 100%;
+        border: none;
+        background-color: #ecf0f1;
+        padding-left: 10px;
+        color: #7f8c8d;
+        font-family: 'Lato', sans-serif;
+        font-size: 14px;
+    }
+
+    .label-input select:focus {
+        outline: none;
+        background-color: #dcdde1;
+    }
+
+    .icon-modify {
+        color: #7f8c8d;
+        padding: 0 5px;
+    }
+
+    .label-input {
+        background-color: #ecf0f1;
+        display: flex;
+        align-items: center;
+        margin: 8px 0; /* Ajuste para garantir espaçamento vertical */
+        padding: 0 10px; /* Ajuste para garantir espaçamento interno */
+        width: 100%; /* Garantir que o campo preencha toda a largura disponível */
+    }
+
 
     /* second content*/
 

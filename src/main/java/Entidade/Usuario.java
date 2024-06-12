@@ -18,6 +18,9 @@ public class Usuario {
     private String dia;
     private String permissao;
     private String pessoa;
+    private String role;
+    private String titulo;
+    private String mensagem;
 
     public String getCpf() {
         return cpf;
@@ -141,6 +144,31 @@ public class Usuario {
 
     public void setPessoa(String pessoa) {
         this.pessoa = pessoa;
+    }
+
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public String getMensagem() {
+        return mensagem;
+    }
+
+    public void setMensagem(String mensagem) {
+        this.mensagem = mensagem;
     }
 }
 

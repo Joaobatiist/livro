@@ -12,10 +12,12 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
-@WebServlet(name = "CadastrarServlet", urlPatterns = {"/cadastrar"})
+@WebServlet(name = "CadastrarServlet", urlPatterns = {"/CadastrarServlet"})
 public class CadastrarServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        RequestDispatcher rd = request.getRequestDispatcher("/Page/cadastrar.jsp"); // Replace with your success page path
+        rd.forward(request, response);
     }
 
     @Override
@@ -23,7 +25,7 @@ public class CadastrarServlet extends HttpServlet {
         String path = request.getServletPath();
 
         try {
-            if (path.equals("/cadastrar")) {
+            if (path.equals("/CadastrarServlet")) {
                 cadastroUsuario(request, response);
             } else {
                 response.sendError(HttpServletResponse.SC_NOT_FOUND, "Endpoint not found");
@@ -41,10 +43,11 @@ public class CadastrarServlet extends HttpServlet {
             String nome = request.getParameter("nome");
             String senha = request.getParameter("senha");
             String telefone = request.getParameter("telefone");
+            String role = request.getParameter("role");
 
             // Check for empty fields
-            if (isEmpty(cpf) || isEmpty(email) || isEmpty(nome) || isEmpty(senha) || isEmpty(telefone)) {
-                RequestDispatcher rd = request.getRequestDispatcher("/cadastrar.html"); // Replace with your registration form path
+            if (isEmpty(cpf) || isEmpty(email) || isEmpty(nome) || isEmpty(senha) || isEmpty(telefone) || isEmpty(role)) {
+                RequestDispatcher rd = request.getRequestDispatcher("/Page/cadastrar.jsp"); // Replace with your registration form path
                 rd.forward(request, response);
                 return; // Stop further processing if fields are empty
             }
@@ -56,6 +59,7 @@ public class CadastrarServlet extends HttpServlet {
             usuario.setNome(nome);
             usuario.setSenha(senha);
             usuario.setTelefone(telefone);
+            usuario.setRole(role);
 
             // Interact with UsuarioDao for registration
             UsuarioDao usuarioDAO = new UsuarioDao();
@@ -64,7 +68,7 @@ public class CadastrarServlet extends HttpServlet {
 
             // Handle registration success or failure
             if (cadastrar) {
-                RequestDispatcher rd = request.getRequestDispatcher("/index.jsp"); // Replace with your success page path
+                RequestDispatcher rd = request.getRequestDispatcher("/Page/admin.jsp"); // Replace with your success page path
                 rd.forward(request, response);
             } else {
                 request.setAttribute("erroCadastro", "Erro ao cadastrar usuário. Tente novamente.");

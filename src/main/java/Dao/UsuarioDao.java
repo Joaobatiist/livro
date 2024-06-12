@@ -2,33 +2,68 @@ package Dao;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
 import BancoDeDados.Conexao;
 import Entidade.Usuario;
 
 public class UsuarioDao {
 
+
+    private static Usuario getUsuario(ResultSet result) {
+        Usuario usuario = new Usuario();
+
+        usuario.setCpf("cpf");
+        usuario.setEmail("email");
+        usuario.setNome("nome");
+        usuario.setSenha("senha");
+        usuario.setTelefone("telefone");
+        return usuario;
+    }
+
+
     public boolean verifica(Usuario usuario) {
-        PreparedStatement Ps = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        boolean encontrado = false;
 
         try {
-            String sql = "SELECT * FROM Usuario where  Email =? and Senha =?";
-            Ps = Conexao.getConnection().prepareStatement(sql);
-            Ps.setString(1, usuario.getEmail());
-            Ps.setString(2, usuario.getSenha());
+            String sql = "SELECT * FROM Usuario WHERE Email = ? AND Senha = ?";
+            ps = Conexao.getConnection().prepareStatement(sql);
+            ps.setString(1, usuario.getEmail());
+            ps.setString(2, usuario.getSenha());
 
-            ResultSet rs = Ps.executeQuery();
-            if (rs.isBeforeFirst() ) {
-                return true;
+            rs = ps.executeQuery();
+            encontrado = rs.next();
+
+            if (encontrado) {
+                // Preencha os campos do usuário se necessário
+                usuario.setRole(rs.getString("role"));
             }
 
-            Ps.close();
-
-        } catch(SQLException a){
-            a.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Feche os recursos
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
         }
-        return false;
+
+        return encontrado;
     }
+
 
     public void cadastroUsuario(Usuario usuario) {
 
@@ -36,17 +71,15 @@ public class UsuarioDao {
         PreparedStatement ps = null;
 
 
-
-
-
         try {
-            String sql = "INSERT INTO Usuario (Cpf, Email, Nome, Senha, Telefone) VALUES (?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO Usuario (Cpf, Email, Nome, Senha, Telefone, Role) VALUES (?, ?, ?, ?, ?, ?)";
             ps = Conexao.getConnection().prepareStatement(sql);
             ps.setString(1, usuario.getCpf());
             ps.setString(2, usuario.getEmail());
             ps.setString(3, usuario.getNome());
             ps.setString(4, usuario.getSenha());
             ps.setString(5, usuario.getTelefone());
+            ps.setString(6, usuario.getRole());
 
             ps.execute();
             ps.close();
@@ -59,6 +92,7 @@ public class UsuarioDao {
 
 
     }
+
     public void cadastroOcorrencia(Usuario ocorrencia) {
         PreparedStatement ps = null;
 
@@ -96,19 +130,19 @@ public class UsuarioDao {
             e.printStackTrace();
         }
     }
-    public ArrayList<Usuario> consultar (){
 
-        Connection conn=null;
+    public ArrayList<Usuario> consultar() {
+
+        Connection conn = null;
         ArrayList<Usuario> lista = new ArrayList();
 
-        try{
+        try {
             conn = (Connection) Conexao.getConnection();
             Statement stm = conn.createStatement();
             String sql = "SELECT * FROM Solicitar";
             ResultSet rs = (ResultSet) stm.executeQuery(sql);
 
-            while (rs.next())
-            {
+            while (rs.next()) {
                 Usuario u = new Usuario();
 
                 u.setNome(rs.getString("Nome"));
@@ -122,11 +156,12 @@ public class UsuarioDao {
             stm.close();
             conn.close();
 
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return lista;
     }
+
     public void cadastroVisita(Usuario visita) {
         PreparedStatement ps = null;
 
@@ -145,6 +180,112 @@ public class UsuarioDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-}
     }
+
+    public void cadastroNoticia(Usuario noticia) {
+        PreparedStatement ps = null;
+
+        try {
+            String sql = "INSERT INTO Noticia (Titulo, Mensagem) VALUES (?, ?)";
+            ps = Conexao.getConnection().prepareStatement(sql);
+            ps.setString(1, noticia.getTitulo());
+            ps.setString(2, noticia.getMensagem());
+
+            ps.execute();
+            ps.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public ArrayList<Usuario> ocorrencia() {
+
+        Connection conn = null;
+        ArrayList<Usuario> resgistro = new ArrayList();
+
+        try {
+            conn = (Connection) Conexao.getConnection();
+            Statement stm = conn.createStatement();
+            String sql = "SELECT * FROM Ocorrencia";
+            ResultSet rs = (ResultSet) stm.executeQuery(sql);
+
+            while (rs.next()) {
+                Usuario u = new Usuario();
+
+                u.setNome(rs.getString("Nome"));
+                u.setTipo(rs.getString("Tipo"));
+                u.setDescricao(rs.getString("Descricao"));
+
+                resgistro.add(u);
+            }
+
+            stm.close();
+            conn.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resgistro;
+    }
+    public ArrayList<Usuario> noticia() {
+
+        Connection conn = null;
+        ArrayList<Usuario> noticia = new ArrayList();
+
+        try {
+            conn = (Connection) Conexao.getConnection();
+            Statement stm = conn.createStatement();
+            String sql = "SELECT * FROM Noticia";
+            ResultSet rs = (ResultSet) stm.executeQuery(sql);
+
+            while (rs.next()) {
+                Usuario u = new Usuario();
+
+                u.setTitulo(rs.getString("titulo"));
+                u.setMensagem(rs.getString("mensagem"));
+
+                noticia.add(u);
+            }
+
+            stm.close();
+            conn.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return noticia;
+    }
+    public ArrayList<Usuario> visita() {
+
+        Connection conn = null;
+        ArrayList<Usuario> visita = new ArrayList();
+
+        try {
+            conn = (Connection) Conexao.getConnection();
+            Statement stm = conn.createStatement();
+            String sql = "SELECT * FROM Visita";
+            ResultSet rs = (ResultSet) stm.executeQuery(sql);
+
+            while (rs.next()) {
+                Usuario u = new Usuario();
+
+
+                u.setPessoa(rs.getString("pessoa"));
+                u.setApartamento(rs.getString("apartamento"));
+                u.setDia(rs.getString("dia"));
+                u.setCpf(rs.getString("cpf"));
+                u.setPermissao(rs.getString("permissao"));
+
+                visita.add(u);
+            }
+
+            stm.close();
+            conn.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return visita;
+    }
+}
 

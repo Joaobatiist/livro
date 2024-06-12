@@ -1,4 +1,6 @@
 <%@ page import="Entidade.Usuario" %>
+<%@ page import="Dao.UsuarioDao" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="br">
@@ -20,9 +22,9 @@
     </a>
     <ul class="side-menu top">
         <li class="active">
-            <a href="#" onclick="showContent('dashboard-content')">
-                <i class='bx bxs-dashboard' ></i>
-                <span class="text">Dashboard</span>
+            <a href="#" onclick="showContent('Noticias-content')">
+                <i class='bx bxs-home' ></i>
+                <span class="text">Noticias</span>
             </a>
         </li>
         <li>
@@ -32,15 +34,15 @@
             </a>
         </li>
         <li>
-            <a href="#" onclick="showContent('ocorrencias-content')">
-                <i class='bx bxs-message-dots' ></i>
-                <span class="text">Ocorrências</span>
-            </a>
-        </li>
-        <li>
             <a href="#" onclick="showContent('equipe-content')">
                 <i class='bx bxs-group' ></i>
                 <span class="text">Equipe</span>
+            </a>
+        </li>
+        <li>
+            <a href="#" onclick="showContent('Visita-content')">
+                <i class='bx bxs-group' ></i>
+                <span class="text">Visistantes</span>
             </a>
         </li>
         <li>
@@ -52,7 +54,7 @@
     </ul>
     <ul class="side-menu">
         <li>
-            <a href="cadastrar">
+            <a href="CadastrarServlet">
                 <i class='bx bxs-plus-circle' ></i>
                 <span class="text">Cadastrar</span>
             </a>
@@ -103,23 +105,20 @@
             <i class='bx bxs-bell' ></i>
             <span class="num">8</span>
         </a>
-        <a href="#" class="profile">
-            <img src="/image/icon%20administrador.jpg" alt="">
-        </a>
     </nav>
     <!-- BARRA DE NAVEGAÇÃO -->
 
     <!-- PRINCIPAL -->
 
     <!-- Conteúdo do Dashboard -->
-    <section id="dashboard-content" class="content-item active-content">
+    <section id="Noticias-content" class="content-item active-content">
         <main>
             <div class="head-title">
                 <div class="left">
-                    <h1>Dashboard</h1>
+                    <h1>Noticias</h1>
                     <ul class="breadcrumb">
                         <li>
-                            <a  href="#">Dashboard</a>
+                            <a  href="#">Noticias</a>
                         </li>
                         <li><i class='bx bx-chevron-right' ></i></li>
                         <li>
@@ -133,22 +132,8 @@
                 <li>
                     <i class='bx bxs-calendar-check' ></i>
                     <span class="text">
-                        <h3>1020</h3>
+                        <h3></h3>
                         <p>Novas solicitações</p>
-                    </span>
-                </li>
-                <li>
-                    <i class='bx bxs-group' ></i>
-                    <span class="text">
-                        <h3>2834</h3>
-                        <p>Visitantes</p>
-                    </span>
-                </li>
-                <li>
-                    <i class='bx bxs-dollar-circle' ></i>
-                    <span class="text">
-                        <h3>$2543</h3>
-                        <p>Renda-Mensal</p>
                     </span>
                 </li>
             </ul>
@@ -156,90 +141,56 @@
             <div class="table-data">
                 <div class="order">
                     <div class="head">
-                        <h3>Solicitações</h3>
-                        <i class='bx bx-search' ></i>
-                        <i class='bx bx-filter' ></i>
+                        <h3>Solicitacoes</h3>
+                        <p>Aqui você agenda nosso serviços</p>
+
                     </div>
-                    <table>
-                        <thead>
-                        <tr>
-                            <th>Morador</th>
-                            <th>Data da Solicitação</th>
-                            <th>Status</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>
-                                <img src="/image/icon%20morador.png" alt="">
-                                <p>Arthur Gabriel</p>
-                            </td>
-                            <td>01-10-2021</td>
-                            <td><span class="status completed">Completo</span></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <img src="/image/icon%20morador.png" alt="">
-                                <p>João Guilherme</p>
-                            </td>
-                            <td>01-10-2021</td>
-                            <td><span class="status pending">Pendente</span></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <img src="/image/icon%20morador.png" alt="">
-                                <p>Pedro Henrique</p>
-                            </td>
-                            <td>01-10-2021</td>
-                            <td><span class="status process">Em Andamento</span></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <img src="/image/icon%20morador%20feminino.png" alt="">
-                                <p>Maria Eduarda</p>
-                            </td>
-                            <td>01-10-2021</td>
-                            <td><span class="status pending">Pendente</span></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <img src="/image/icon%20morador%20feminino.png">
-                                <p>Manuela Costa</p>
-                            </td>
-                            <td>01-10-2021</td>
-                            <td><span class="status completed">Completo</span></td>
-                        </tr>
-                        </tbody>
-                    </table>
+                    <form action="SolicitarServlet" method="Post">
+                        <table>
+
+                            <tr>
+                                <th>Nome</th>
+                                <th>Data</th>
+                                <th>Hora</th>
+                                <th>Solicitacao</th>
+                                <th>Informacoes</th>
+                            </tr>
+                            <%
+                                UsuarioDao b = new UsuarioDao();
+                                ArrayList<Usuario> list = new ArrayList<Usuario>();
+
+                                list = b.consultar();
+                                for (Usuario a : list){
+
+                            %>
+                            <tr>
+                                <td><%= a.getNome() %></td>
+                                <td><%= a.getData() %></td>
+                                <td><%= a.getHora() %></td>
+                                <td><%= a.getSolicitar() %></td>
+                                <td><%= a.getInformacao() %></td>
+                            </tr>
+                            <%
+                                }
+                            %>
+                        </table>
+                    </form>
                 </div>
-                <div class="todo">
-                    <div class="head">
-                        <h3>Tarefas</h3>
-                        <i class='bx bx-plus' ></i>
-                        <i class='bx bx-filter' ></i>
-                    </div>
-                    <ul class="todo-list">
-                        <li class="completed">
-                            <p>Conferir o jardim.</p>
-                            <i class='bx bx-dots-vertical-rounded' ></i>
-                        </li>
-                        <li class="completed">
-                            <p>Verificar as câmeras.</p>
-                            <i class='bx bx-dots-vertical-rounded' ></i>
-                        </li>
-                        <li class="not-completed">
-                            <p>Fiscalizar a portaria e a segurança condominial.</p>
-                            <i class='bx bx-dots-vertical-rounded' ></i>
-                        </li>
-                        <li class="completed">
-                            <p>Verificar os elevadores e a piscina.</p>
-                            <i class='bx bx-dots-vertical-rounded' ></i>
-                        </li>
-                        <li class="not-completed">
-                            <p>Fazer relatórios e orçamentos;</p>
-                            <i class='bx bx-dots-vertical-rounded' ></i>
-                        </li>
-                    </ul>
+                <div class="container">
+                    <form action="NoticiaServlet" method="post">
+                        <div class="form-group">
+                        <h2>Notíciaa do condflow</h2>
+                        <div class="input-group">
+                            <label for="titulo">Título:</label>
+                            <input type="text" id="titulo" name="titulo" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="mensagem">Mensagem:</label>
+                            <textarea id="mensagem" name="mensagem" rows="6" required></textarea>
+                        </div>
+                        <button type="submit">Enviar</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </main>
@@ -267,22 +218,15 @@
                 <li>
                     <i class='bx bxs-calendar-check' ></i>
                     <span class="text">
-                        <h3>12</h3>
+                        <h3></h3>
                         <p>Entregas Realizadas</p>
                     </span>
                 </li>
                 <li>
                     <i class='bx bxs-group' ></i>
                     <span class="text">
-                        <h3>2</h3>
+                        <h3></h3>
                         <p>Entregas Pendente</p>
-                    </span>
-                </li>
-                <li>
-                    <i class='bx bxs-dollar-circle' ></i>
-                    <span class="text">
-                        <h3>$200</h3>
-                        <p>Renda-Geral</p>
                     </span>
                 </li>
             </ul>
@@ -305,7 +249,7 @@
                         <tbody>
                         <tr>
                             <td>
-                                <img src="/image/icon%20morador.png" alt="">
+                                <ul class="bx bxs-group"></ul>
                                 <p>Arthur Gabriel</p>
                             </td>
                             <td>01-10-2021</td>
@@ -313,7 +257,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <img src="/image/icon%20morador.png" alt="">
+                                <ul class="bx bxs-group"></ul>
                                 <p>João Guilherme</p>
                             </td>
                             <td>01-10-2021</td>
@@ -321,27 +265,11 @@
                         </tr>
                         <tr>
                             <td>
-                                <img src="/image/icon%20morador.png" alt="">
+                                <ul class="bx bxs-group"></ul>
                                 <p>Pedro Henrique</p>
                             </td>
                             <td>01-10-2021</td>
                             <td><span class="status process">Em Andamento</span></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <img src="/image/icon%20morador%20feminino.png" alt="">
-                                <p>Maria Eduarda</p>
-                            </td>
-                            <td>01-10-2021</td>
-                            <td><span class="status pending">Pendente</span></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <img src="/image/icon%20morador%20feminino.png">
-                                <p>Manuela Costa</p>
-                            </td>
-                            <td>01-10-2021</td>
-                            <td><span class="status completed">Completo</span></td>
                         </tr>
                         </tbody>
                     </table>
@@ -366,129 +294,6 @@
             </div>
         </main>
     </section>
-
-    <!-- Conteúdo das Ocorrências -->
-    <section id="ocorrencias-content" class="content-item">
-        <main>
-            <div class="head-title">
-                <div class="left">
-                    <h1>Ocorrências</h1>
-                    <ul class="breadcrumb">
-                        <li>
-                            <a href="#">Ocorrências</a>
-                        </li>
-                        <li><i class='bx bx-chevron-right' ></i></li>
-                        <li>
-                            <a class="active" href="#">Home</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <ul class="box-info">
-                <li>
-                    <i class='bx bxs-calendar-check' ></i>
-                    <span class="text">
-                        <h3>5</h3>
-                        <p>Ocorrências Resolvidas</p>
-                    </span>
-                </li>
-                <li>
-                    <i class='bx bxs-group' ></i>
-                    <span class="text">
-                        <h3>1</h3>
-                        <p>Ocorrências Pendente</p>
-                    </span>
-                </li>
-                <li>
-                    <i class='bx bxs-dollar-circle' ></i>
-                    <span class="text">
-                        <h3>$50</h3>
-                        <p>Renda-Geral</p>
-                    </span>
-                </li>
-            </ul>
-
-            <div class="table-data">
-                <div class="order">
-                    <div class="head">
-                        <h3>Ocorrências</h3>
-                        <i class='bx bx-search' ></i>
-                        <i class='bx bx-filter' ></i>
-                    </div>
-                    <table>
-                        <thead>
-                        <tr>
-                            <th>Morador</th>
-                            <th>Data da Solicitação</th>
-                            <th>Status</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>
-                                <img src="/image/icon%20morador.png" alt="">
-                                <p>Arthur Gabriel</p>
-                            </td>
-                            <td>01-10-2021</td>
-                            <td><span class="status completed">Completo</span></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <img src="/image/icon%20morador.png" alt="">
-                                <p>João Guilherme</p>
-                            </td>
-                            <td>01-10-2021</td>
-                            <td><span class="status pending">Pendente</span></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <img src="/image/icon%20morador.png" alt="">
-                                <p>Pedro Henrique</p>
-                            </td>
-                            <td>01-10-2021</td>
-                            <td><span class="status process">Em Andamento</span></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <img src="/image/icon%20morador%20feminino.png" alt="">
-                                <p>Maria Eduarda</p>
-                            </td>
-                            <td>01-10-2021</td>
-                            <td><span class="status pending">Pendente</span></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <img src="/image/icon%20morador%20feminino.png">
-                                <p>Manuela Costa</p>
-                            </td>
-                            <td>01-10-2021</td>
-                            <td><span class="status completed">Completo</span></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="todo">
-                    <div class="head">
-                        <h3>Ocorrências Pendentes</h3>
-                        <i class='bx bx-plus' ></i>
-                        <i class='bx bx-filter' ></i>
-                    </div>
-                    <ul class="todo-list">
-                        <li class="not-completed">
-                            <p>Conferir relatórios de segurança.</p>
-                            <i class='bx bx-dots-vertical-rounded' ></i>
-                        </li>
-                        <li class="not-completed">
-                            <p>Verificar câmeras de segurança.</p>
-                            <i class='bx bx-dots-vertical-rounded' ></i>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </main>
-    </section>
-
     <!-- Conteúdo da Equipe -->
     <section id="equipe-content" class="content-item">
         <main>
@@ -511,21 +316,21 @@
                 <li>
                     <i class='bx bxs-group' ></i>
                     <span class="text">
-                        <h3>8</h3>
+                        <h3></h3>
                         <p>Funcionários Ativos</p>
                     </span>
                 </li>
                 <li>
                     <i class='bx bxs-group' ></i>
                     <span class="text">
-                        <h3>2</h3>
+                        <h3></h3>
                         <p>Funcionários de Férias</p>
                     </span>
                 </li>
                 <li>
                     <i class='bx bxs-group' ></i>
                     <span class="text">
-                        <h3>1</h3>
+                        <h3></h3>
                         <p>Funcionários de Licença</p>
                     </span>
                 </li>
@@ -549,23 +354,8 @@
                         <tbody>
                         <tr>
                             <td>
-                                <img src="/image/icon%20morador.png" alt="">
-                                <p>Arthur Gabriel</p>
-                            </td>
-                            <td>Zelador</td>
-                            <td><span class="status completed">Ativo</span></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <img src="/image/icon%20morador.png" alt="">
-                                <p>João Guilherme</p>
-                            </td>
-                            <td>Segurança</td>
-                            <td><span class="status pending">Licença</span></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <img src="/image/icon%20morador.png" alt="">
+                                <ul class="bx bxs-group"></ul>
+
                                 <p>Pedro Henrique</p>
                             </td>
                             <td>Manutenção</td>
@@ -573,7 +363,8 @@
                         </tr>
                         <tr>
                             <td>
-                                <img src="/image/icon%20morador%20feminino.png" alt="">
+                                <ul class="bx bxs-group"></ul>
+
                                 <p>Maria Eduarda</p>
                             </td>
                             <td>Limpeza</td>
@@ -581,7 +372,8 @@
                         </tr>
                         <tr>
                             <td>
-                                <img src="/image/icon%20morador%20feminino.png">
+                                <ul class="bx bxs-group"></ul>
+
                                 <p>Manuela Costa</p>
                             </td>
                             <td>Limpeza</td>
@@ -610,7 +402,58 @@
             </div>
         </main>
     </section>
+<section id="Visita-content" class="content-item">
+<main>
+    <div class="head-title">
+        <div class="left">
+            <h1>Visitantes</h1>
+            <ul class="breadcrumb">
+                <li>
+                    <a href="#">Visitantes</a>
+                </li>
+                <li><i class='bx bxs-group' ></i></li>
+                <li>
+                    <a class="active" href="#">Home</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="table-data">
+        <div class="order">
+     <table>
+        <thead>
+        <tr>
+            <th>Visistante</th>
+            <th>Apartamento</th>
+            <th>Dia</th>
+            <th>Cpf</th>
+            <th>Permissão</th>
+        </tr>
+        <%
+            UsuarioDao d = new UsuarioDao();
+            ArrayList<Usuario> visita = new ArrayList<Usuario>();
 
+            visita = d.visita();
+            for (Usuario a : visita){
+
+        %>
+        <tr>
+            <td><%= a.getPessoa() %></td>
+            <td><%= a.getApartamento() %></td>
+            <td><%= a.getDia() %></td>
+            <td><%= a.getCpf() %></td>
+            <td><%= a.getPermissao() %></td>
+        </tr>
+        <%
+            }
+        %>
+        </thead>
+
+    </table>
+    </div>
+    </div>
+</main>
+</section>
     <!-- Conteúdo das Finanças -->
     <section id="registros-content" class="content-item">
         <main>
@@ -629,26 +472,13 @@
                 </div>
             </div>
 
+
             <ul class="box-info">
                 <li>
                     <i class='bx bxs-calendar-check' ></i>
                     <span class="text">
-                        <h3>20</h3>
-                        <p>Pagamentos Realizados</p>
-                    </span>
-                </li>
-                <li>
-                    <i class='bx bxs-group' ></i>
-                    <span class="text">
-                        <h3>5</h3>
-                        <p>Pagamentos Pendentes</p>
-                    </span>
-                </li>
-                <li>
-                    <i class='bx bxs-dollar-circle' ></i>
-                    <span class="text">
-                        <h3>$500</h3>
-                        <p>Renda-Geral</p>
+                        <h3></h3>
+                        <p>Verificar ocorrencia</p>
                     </span>
                 </li>
             </ul>
@@ -656,7 +486,7 @@
             <div class="table-data">
                 <div class="order">
                     <div class="head">
-                        <h3>Finanças</h3>
+                        <h3>Registros</h3>
                         <i class='bx bx-search' ></i>
                         <i class='bx bx-filter' ></i>
                     </div>
@@ -664,72 +494,30 @@
                         <thead>
                         <tr>
                             <th>Nome</th>
-                            <th>Data</th>
-                            <th>Status</th>
+                            <th>Tipo</th>
+                            <th>Descricao</th>
                         </tr>
+                        <%
+                            UsuarioDao o = new UsuarioDao();
+                            ArrayList<Usuario> resgistro = new ArrayList<Usuario>();
+
+                            resgistro = o.ocorrencia();
+                            for (Usuario a : resgistro){
+
+                        %>
+                        <tr>
+                            <td><%= a.getNome() %></td>
+                            <td><%= a.getTipo() %></td>
+                            <td><%= a.getDescricao() %></td>
+                        </tr>
+                        <%
+                            }
+                        %>
                         </thead>
-                        <tbody>
-                        <tr>
-                            <td>
-                                <img src="/image/icon%20morador.png" alt="">
-                                <p>Arthur Gabriel</p>
-                            </td>
-                            <td>01-10-2021</td>
-                            <td><span class="status completed">Completo</span></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <img src="/image/icon%20morador.png" alt="">
-                                <p>João Guilherme</p>
-                            </td>
-                            <td>01-10-2021</td>
-                            <td><span class="status pending">Pendente</span></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <img src="/image/icon%20morador.png" alt="">
-                                <p>Pedro Henrique</p>
-                            </td>
-                            <td>01-10-2021</td>
-                            <td><span class="status process">Em Andamento</span></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <img src="/image/icon%20morador%20feminino.png" alt="">
-                                <p>Maria Eduarda</p>
-                            </td>
-                            <td>01-10-2021</td>
-                            <td><span class="status pending">Pendente</span></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <img src="/image/icon%20morador%20feminino.png">
-                                <p>Manuela Costa</p>
-                            </td>
-                            <td>01-10-2021</td>
-                            <td><span class="status completed">Completo</span></td>
-                        </tr>
-                        </tbody>
+
                     </table>
                 </div>
-                <div class="todo">
-                    <div class="head">
-                        <h3>Pagamentos Pendentes</h3>
-                        <i class='bx bx-plus' ></i>
-                        <i class='bx bx-filter' ></i>
-                    </div>
-                    <ul class="todo-list">
-                        <li class="not-completed">
-                            <p>Verificar pagamento de fornecedores.</p>
-                            <i class='bx bx-dots-vertical-rounded' ></i>
-                        </li>
-                        <li class="not-completed">
-                            <p>Confirmar depósitos bancários.</p>
-                            <i class='bx bx-dots-vertical-rounded' ></i>
-                        </li>
-                    </ul>
                 </div>
-            </div>
         </main>
     </section>
     <script>
@@ -836,6 +624,7 @@
 
 
                                         </script>
+</section>
 </body>
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Poppins:wght@400;500;600;700&display=swap');
@@ -1016,6 +805,39 @@
     }
 
 
+    .container {
+        width: 50%;
+        background: #fff;
+        padding: 50px;
+        border-radius: 50px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        position: relative;
+
+    }
+    .form-group {
+        margin-bottom: 15px;
+    }
+    .form-group label {
+        display: block;
+        margin-bottom: 5px;
+    }
+    .form-group input, .form-group select, .form-group textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+    .form-group button {
+        padding: 10px 20px;
+        border: none;
+        background: #28a745;
+        color: #fff;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    .form-group button:hover {
+        background: #218838;
+    }
 
 
     /* NAVBAR */
@@ -1243,7 +1065,125 @@
         color: var(--dark);
     }
 
+    :root {
+        --background-light: #fff;
+        --background-dark: #333;
+        --text-light: #000;
+        --text-dark: #fff;
+        --primary-light: #28a745;
+        --primary-dark: #218838;
+        --border-light: #ccc;
+        --border-dark: #444;
+    }
 
+    body.dark-mode {
+        --background-light: #333;
+        --background-dark: #fff;
+        --text-light: #fff;
+        --text-dark: #000;
+        --primary-light: #218838;
+        --primary-dark: #28a745;
+        --border-light: #444;
+        --border-dark: #ccc;
+    }
+
+    body {
+        background-color: var(--background-light);
+        color: var(--text-light);
+    }
+
+    .container {
+        width: 50%;
+        background: var(--background-light);
+        padding: 50px;
+        border-radius: 50px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        position: relative;
+        color: var(--text-light);
+    }
+
+    .table-data {
+        width: 100%;
+    }
+
+    .table-data .order {
+        margin-top: 20px;
+    }
+
+    .table-data .order .head {
+        margin-bottom: 20px;
+    }
+
+    .table-data .order .head h3 {
+        margin: 0;
+        font-size: 24px;
+        color: var(--text-light);
+    }
+
+    .table-data .order .head p {
+        margin: 5px 0 0;
+        font-size: 14px;
+        color: var(--text-light);
+    }
+
+    .table-data .order table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: var(--background-light);
+        color: var(--text-light);
+    }
+
+    .table-data .order table th,
+    .table-data .order table td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid var(--border-light);
+        font-size: 13px;
+        height: 75px; /* Define a altura fixa das células */
+    }
+
+    .table-data .order table th {
+        background-color: var(--background-dark);
+        color: var(--text-dark);
+    }
+
+    .table-data .order table tr:nth-child(even) {
+        background-color: var(--border-light);
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        color: var(--text-light);
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid var(--border-light);
+        border-radius: 4px;
+        background-color: var(--background-light);
+        color: var(--text-light);
+    }
+
+    .form-group button {
+        padding: 10px 20px;
+        border: none;
+        background: var(--primary-light);
+        color: var(--text-light);
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .form-group button:hover {
+        background: var(--primary-dark);
+    }
 
 
 
@@ -1258,7 +1198,7 @@
     #content main .table-data > div {
         border-radius: 20px;
         background: var(--light);
-        padding: 24px;
+        padding: 20px;
         overflow-x: auto;
     }
     #content main .table-data .head {
@@ -1288,7 +1228,7 @@
         padding-bottom: 12px;
         font-size: 13px;
         text-align: left;
-        border-bottom: 1px solid var(--grey);
+        border-bottom: 1px solid var(--dark);
     }
     #content main .table-data .order table td {
         padding: 16px 0;
@@ -1299,15 +1239,8 @@
         grid-gap: 12px;
         padding-left: 6px;
     }
-    #content main .table-data .order table td img {
-        width: 36px;
-        height: 36px;
-        border-radius: 50%;
-        object-fit: cover;
-    }
-    #content main .table-data .order table tbody tr:hover {
-        background: var(--grey);
-    }
+
+
     #content main .table-data .order table tr td .status {
         font-size: 10px;
         padding: 6px 16px;
@@ -1324,7 +1257,6 @@
     #content main .table-data .order table tr td .status.pending {
         background: var(--orange);
     }
-
 
     #content main .table-data .todo {
         flex-grow: 1;
@@ -1358,14 +1290,6 @@
     /* MAIN */
     /* CONTENT */
 
-
-
-
-
-
-
-
-
     @media screen and (max-width: 768px) {
         #sidebar {
             width: 200px;
@@ -1380,10 +1304,6 @@
             display: none;
         }
     }
-
-
-
-
 
 
     @media screen and (max-width: 576px) {

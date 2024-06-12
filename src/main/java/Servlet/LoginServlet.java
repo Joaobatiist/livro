@@ -54,8 +54,20 @@ public class LoginServlet extends HttpServlet {
         if (logado) {
             HttpSession session = request.getSession();
             session.setAttribute("email-login", u);
-            RequestDispatcher rd = request.getRequestDispatcher("/Page/usuario.jsp");
-            rd.forward(request, response);
+
+            String role = u.getRole();
+
+            // Redireciona o usuário com base no seu papel (role)
+            if ("admin".equalsIgnoreCase(role)) {
+                RequestDispatcher rd = request.getRequestDispatcher("/Page/admin.jsp");
+                rd.forward(request, response);
+            } else if ("porteiro".equalsIgnoreCase(role)) {
+                RequestDispatcher rd = request.getRequestDispatcher("/Page/porteiro.jsp");
+                rd.forward(request, response);
+            } else {
+                RequestDispatcher rd = request.getRequestDispatcher("/Page/usuario.jsp");
+                rd.forward(request, response);
+            }
         } else {
             // Define uma mensagem de erro para ser exibida na página de login
             request.setAttribute("erroLogin", "Erro ao tentar fazer login");
@@ -63,4 +75,5 @@ public class LoginServlet extends HttpServlet {
             rd.forward(request, response);
         }
     }
+
 }

@@ -1,3 +1,4 @@
+<%@ page contentType="text/html; charset=UTF-8" %>
 <%@ page import="Entidade.Usuario" %>
 <%@ page import="Dao.UsuarioDao" %>
 <%@ page import="java.util.ArrayList" %>
@@ -24,6 +25,12 @@
             <a href="#" onclick="showContent('Noticias-content')">
                 <i class='bx bxs-home' ></i>
                 <span class="text">Noticias</span>
+            </a>
+        </li>
+        <li>
+            <a href="#" onclick="showContent('Solicitacao-content')">
+                <i class='bx bxs-group' ></i>
+                <span class="text">Solicitação</span>
             </a>
         </li>
         <li>
@@ -80,7 +87,7 @@
 
     <nav>
         <i class='bx bx-menu' ></i>
-        <a href="#" class="nav-link">Categorias</a>
+        <a href="#" class="nav-link">Catégorias</a>
         <form action="#">
             <div class="form-input">
                 <input type="search" id="search" placeholder="Search..." oninput="searchContent()">
@@ -104,7 +111,7 @@
                     <h1>Noticias</h1>
                     <ul class="breadcrumb">
                         <li>
-                            <a  href="#">Noticias</a>
+                            <a  href="#">Notícias</a>
                         </li>
                         <li><i class='bx bx-chevron-right'></i></li>
                         <li>
@@ -122,11 +129,67 @@
 
                     </span>
                 </li>
+            </ul>
+            <div class="table-data">
+                <div class="order">
+                    <div class="head">
+                        <h3>Mensagens</h3>
+                        <p>Mensagens referente ao condflow</p>
+
+                    </div>
+                    <form action="NoticiaServlet" method="Post">
+                        <table>
+
+                            <tr>
+                                <th>Titulo</th>
+                                <th>Mensagem</th>
+
+                            </tr>
+                            <%
+                                UsuarioDao b = new UsuarioDao();
+                                ArrayList<Usuario> noticia = new ArrayList<Usuario>();
+
+                               noticia = b.noticia();
+                                for (Usuario a : noticia){
+
+                            %>
+                            <tr>
+                                <td><%= a.getTitulo() %></td>
+                                <td><%= a.getMensagem() %></td>
+
+                            </tr>
+                            <%
+                                }
+                            %>
+                        </table>
+                    </form>
+                </div>
+            </div>
+            </main>
+    </section>
+    <section id="Solicitacao-content" class="content-item active-content">
+        <main>
+            <div class="head-title">
+                <div class="left">
+                    <h1>Solicitacao</h1>
+                    <ul class="breadcrumb">
+                        <li>
+                            <a  href="#">solicitacoes</a>
+                        </li>
+                        <li><i class='bx bx-chevron-right'></i></li>
+                        <li>
+                            <a class="active" href="#">Home</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <ul class="box-info">
                 <li>
-                    <i class='bx bxs-group' ></i>
+                    <i class='bx bxs-bell' ></i>
                     <span class="text">
-                        <h3>3</h3>
-                        <p>Liberacao</p>
+                        <h3>Verificar solicitacao</h3>
+
                     </span>
                 </li>
             </ul>
@@ -135,7 +198,7 @@
                 <div class="order">
                     <div class="head">
                         <h3>Solicitacoes</h3>
-                        <p>Aqui você agenda nosso serviços</p>
+                        <p>Aqui voce agenda nosso serviços</p>
 
                     </div>
                     <form action="SolicitarServlet" method="Post">
@@ -149,10 +212,10 @@
                                 <th>Informacoes</th>
                             </tr>
                             <%
-                                UsuarioDao b = new UsuarioDao();
+                                UsuarioDao c = new UsuarioDao();
                                 ArrayList<Usuario> list = new ArrayList<Usuario>();
 
-                                list = b.consultar();
+                                list = c.consultar();
                                 for (Usuario a : list){
 
                             %>
@@ -197,9 +260,11 @@
                             <div class="form-group">
                                 <button type="submit">Enviar</button>
                             </div>
+                        </div>
                     </form>
                 </div>
-            </main>
+            </div>
+        </main>
     </section>
 
     <!-- Conteúdo das Entregas -->
@@ -219,7 +284,6 @@
                     </ul>
                 </div>
             </div>
-
             <ul class="box-info">
                 <li>
                     <i class='bx bxs-calendar-check' ></i>
@@ -317,7 +381,17 @@
             </ul>
         </div>
     </div>
-    <div class="container">
+    <ul class="box-info">
+
+        <li>
+            <i class='bx bxs-group' ></i>
+            <span class="text">
+                        <h3>Visitas</h3>
+                        <p></p>
+                    </span>
+        </li>
+    </ul>
+    <div class="container-visita">
         <h2>Visita</h2>
         <form id="visita-form" action="VisitaServlet" method="post">
             <div class="form-group">
@@ -340,6 +414,7 @@
                 <div class="form-group">
                     <button type="submit">Enviar</button>
                 </div>
+            </div>
         </form>
     </div>
 </main>
@@ -367,84 +442,36 @@
                     <i class='bx bxs-calendar-check' ></i>
                     <span class="text">
                         <h3>5</h3>
-                        <p>Ocorrências Resolvidas</p>
-                    </span>
-                </li>
-                <li>
-                    <i class='bx bxs-group' ></i>
-                    <span class="text">
-                        <h3>1</h3>
-                        <p>Ocorrências Pendente</p>
+                        <p>Registre sua Ocorrencias</p>
                     </span>
                 </li>
             </ul>
 
             <div class="table-data">
-                <div class="order">
-                    <div class="head">
-                        <h3>Ocorrências</h3>
-                        <i class='bx bx-search' ></i>
-                        <i class='bx bx-filter' ></i>
-                    </div>
-                    <table>
-                        <thead>
-                        <tr>
-                            <th>Morador</th>
-                            <th>Data da Solicitação</th>
-                            <th>Status</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>
-                                <ul class="bx bxs-group"></ul>
-                                <p>Pedro Henrique</p>
-                            </td>
-                            <td>01-10-2021</td>
-                            <td><span class="status process">Pendente</span></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <ul class="bx bxs-group"></ul>
-                                <p>Maria Eduarda</p>
-                            </td>
-                            <td>01-10-2021</td>
-                            <td><span class="status pending">Pendente</span></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <ul class="bx bxs-group"></ul>
-                                <p>Manuela Costa</p>
-                            </td>
-                            <td>01-10-2021</td>
-                            <td><span class="status completed">Completo</span></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="container">
+                <div class="container-formulario">
                     <h2>Formulario de Ocorrencia</h2>
                     <form id="ocorrencia-form" action="OcorrenciaServlet" method="post">
                         <div class="form-group">
                             <label for="nome">Nome:</label>
                             <input type="text" id="nome" name="nome" required>
                             <div class="form-group">
-                                <label for="tipo">Tipo de Ocorrência:</label>
+                                <label for="tipo">Tipo de Ocorrencia:</label>
                                 <select id="tipo" name="tipo" required>
                                     <option value="">Selecione</option>
-                                    <option value="reclamacao">Reclamação</option>
+                                    <option value="reclamacao">Reclamacao</option>
                                     <option value="elogio">Elogio</option>
-                                    <option value="sugestao">Sugestão</option>
+                                    <option value="sugestao">Sugestao</option>
                                     <option value="outro">Outro</option>
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="descricao">Descrição:</label>
+                                <label for="descricao">Descricao:</label>
                                 <textarea id="descricao" name="descricao" rows="4" required></textarea>
                             </div>
                             <div class="form-group">
                                 <button type="submit">Enviar</button>
                             </div>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -479,6 +506,7 @@
             sidebar.classList.toggle('hide');
         })
     </script>
+</section>
 </body>
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Poppins:wght@400;500;600;700&display=swap');
@@ -658,8 +686,28 @@
         left: 60px;
     }
 
+    .container-visita{
+        width: 50%;
+        background: #fff;
+        padding: 20px;
+        border-radius: 50px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        position: relative;
+        left: 25%;
 
-    .container {
+    }
+    .container-formulario{
+        width: 50%;
+        background: #fff;
+        padding: 50px;
+        border-radius: 50px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        position: relative;
+        left: 25%;
+
+
+    }
+    .container{
         width: 50%;
         background: #fff;
         padding: 50px;
@@ -957,7 +1005,7 @@
     }
 
     .table-data {
-        width: 100%;
+        width: 50%;
     }
 
     .table-data .order {
