@@ -2,6 +2,7 @@
 <%@ page import="Dao.UsuarioDao" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <!DOCTYPE html>
 <html lang="br">
 <head>
@@ -51,7 +52,6 @@
                 <span class="text">Registros</span>
             </a>
         </li>
-    </ul>
     <ul class="side-menu">
         <li>
             <a href="CadastrarServlet">
@@ -83,6 +83,8 @@
             </a>
         </li>
     </ul>
+            </li>
+    </ul>
 </section>
 <!-- SIDEBAR -->
 
@@ -99,8 +101,6 @@
                 <button type="button" class="search-btn"><i class='bx bx-search' ></i></button>
             </div>
         </form>
-        <input type="checkbox" id="switch-mode" hidden>
-        <label for="switch-mode" class="switch-mode"></label>
         <a href="#" class="notification">
             <i class='bx bxs-bell' ></i>
             <span class="num">8</span>
@@ -122,7 +122,7 @@
                         </li>
                         <li><i class='bx bx-chevron-right' ></i></li>
                         <li>
-                            <a class="active" href="#">Home</a>
+                            <a class="active" href="#Noticias-content">Home</a>
                         </li>
                     </ul>
                 </div>
@@ -204,7 +204,7 @@
                     <h1>Entregas</h1>
                     <ul class="breadcrumb">
                         <li>
-                            <a href="#">Entregas</a>
+                            <a href="#entregas-content">Entregas</a>
                         </li>
                         <li><i class='bx bx-chevron-right' ></i></li>
                         <li>
@@ -413,7 +413,7 @@
                 </li>
                 <li><i class='bx bxs-group' ></i></li>
                 <li>
-                    <a class="active" href="#">Home</a>
+                    <a class="active" href="">Home</a>
                 </li>
             </ul>
         </div>
@@ -520,8 +520,9 @@
                 </div>
         </main>
     </section>
+
     <script>
-        document.getElementById('search-form').addEventListener('submit', function(e) {
+        document.getElementById('search-form').addEventListener('submit', function (e) {
             e.preventDefault(); // Evita o envio do formulário
 
             // Obtém o valor da entrada de busca
@@ -530,7 +531,7 @@
             // Seleciona os elementos que deseja pesquisar
             const elements = document.querySelectorAll('.your-element-class'); // Substitua '.your-element-class' pela classe dos elementos que deseja buscar
 
-            elements.forEach(function(element) {
+            elements.forEach(function (element) {
                 // Verifica se o texto do elemento inclui a consulta de busca
                 if (element.textContent.toLowerCase().includes(query)) {
                     // Mostra o elemento se corresponder à busca
@@ -541,23 +542,23 @@
                 }
             });
         });
-
     </script>
-                                        <script>
-                                            const allSideMenu = document.querySelectorAll('#sidebar .side-menu.top li a');
 
-                                            allSideMenu.forEach(item=> {
-                                                const li = item.parentElement;
+    <script>
+        const allSideMenu = document.querySelectorAll('#sidebar .side-menu.top li a');
 
-                                                item.addEventListener('click', function () {
-                                                    allSideMenu.forEach(i=> {
-                                                        i.parentElement.classList.remove('active');
-                                                    })
-                                                    li.classList.add('active');
-                                                })
-                                            });
+        allSideMenu.forEach(item => {
+            const li = item.parentElement;
 
-                                            function showContent(elemento) {
+            item.addEventListener('click', function () {
+                allSideMenu.forEach(i => {
+                    i.parentElement.classList.remove('active');
+                })
+                li.classList.add('active');
+            })
+        });
+
+        function showContent(elemento) {
                                                 const targetElement = document.getElementById(elemento);
                                                 targetElement.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
                                             }
@@ -607,22 +608,6 @@
                                                     searchForm.classList.remove('show');
                                                 }
                                             })
-
-
-
-                                            const switchMode = document.getElementById('switch-mode');
-
-                                            switchMode.addEventListener('change', function () {
-                                                if(this.checked) {
-                                                    document.body.classList.add('dark');
-                                                } else {
-                                                    document.body.classList.remove('dark');
-                                                }
-                                            })
-
-
-
-
                                         </script>
 </section>
 </body>
@@ -678,14 +663,13 @@
 
 
 
-
     /* SIDEBAR */
     #sidebar {
         position: fixed;
         top: 0;
         left: 0;
         width: 280px;
-        height: 100%;
+        height: 100vh;
         background: var(--light);
         z-index: 2000;
         font-family: var(--lato);
@@ -693,6 +677,7 @@
         overflow-x: hidden;
         scrollbar-width: none;
     }
+
     #sidebar::-webkit-scrollbar {
         display: none;
     }
@@ -732,11 +717,12 @@
     }
     #sidebar .side-menu li.active {
         background: var(--grey);
-        position: relative;
+        position: sticky;
+
     }
     #sidebar .side-menu li.active::before {
         content: '';
-        position: absolute;
+        position: sticky;
         width: 40px;
         height: 40px;
         border-radius: 50%;
@@ -747,7 +733,7 @@
     }
     #sidebar .side-menu li.active::after {
         content: '';
-        position: absolute;
+        position: sticky;
         width: 40px;
         height: 40px;
         border-radius: 50%;
@@ -939,29 +925,7 @@
         object-fit: cover;
         border-radius: 50%;
     }
-    #content nav .switch-mode {
-        display: block;
-        min-width: 50px;
-        height: 25px;
-        border-radius: 25px;
-        background: var(--grey);
-        cursor: pointer;
-        position: relative;
-    }
-    #content nav .switch-mode::before {
-        content: '';
-        position: absolute;
-        top: 2px;
-        left: 2px;
-        bottom: 2px;
-        width: calc(25px - 4px);
-        background: var(--blue);
-        border-radius: 50%;
-        transition: all .3s ease;
-    }
-    #content nav #switch-mode:checked + .switch-mode::before {
-        left: calc(100% - (25px - 4px) - 2px);
-    }
+
     /* NAVBAR */
 
 

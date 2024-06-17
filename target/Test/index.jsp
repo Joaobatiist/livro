@@ -13,10 +13,10 @@
 <div class="container">
     <div class="content first-content">
         <div class="first-column">
-            <h2 class="title title-primary">bem vindo ao condflow!</h2>
-            <p class="description description-primary">Para se manter conectado conosco</p>
-            <p class="description description-primary">por favor faça login com suas informações pessoais</p>
-            <button id="signin" class="btn btn-primary">entrar</button>
+            <h2 class="title title-primary">Condflow</h2>
+            <p class="description description-primary">Condominio inteligente</p>
+            <p class="description description-primary">Para retorna só clicar em login!</p>
+            <button id="signin" class="btn btn-primary">Login</button>
         </div>
         <div class="second-column">
             <h2 class="title title-second">Sobre o Condflow</h2>
@@ -58,12 +58,12 @@
     <div class="content second-content">
         <div class="first-column">
             <h2 class="title title-primary">olá amigo!</h2>
-            <p class="description description-primary">Bem vindo ao condflow</p>
+            <p class="description description-primary">Area de conhecimento do Condflow</p>
             <p class="description description-primary">clique e venha conhecer a sua jornada conosco</p>
             <button id="signup" class="btn btn-primary">Passar</button>
         </div>
         <div class="second-column">
-            <h2 class="title title-second">faça login no desenvolvedor</h2>
+            <h2 class="title title-second">Bem vindo ao Condflow</h2>
             <div class="social-media">
                 <ul class="list-social-media">
                     <a class="link-social-media" href="https://www.facebook.com">
@@ -95,8 +95,6 @@
                     <i class="fas fa-lock icon-modify"></i>
                     <input type="password" id="senha-login" name="senha-login" placeholder="Password">
                 </label>
-
-                <a class="password" href="#">Esqueceu sua senha?</a>
                 <button class="btn btn-second">entrar</button>
             </form>
         </div><!-- second column -->
@@ -180,7 +178,7 @@
     }
 .p{
     width: 75%;
-    font-family: Arial, sans-serif;
+    font-family: 'Lato', sans-serif;
     font-size: 14px;
     font-weight: bold;
     margin: 30px 0;

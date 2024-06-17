@@ -287,5 +287,37 @@ public class UsuarioDao {
         }
         return visita;
     }
+    public void cadastroMensagem(Usuario mensagem) {
+        PreparedStatement ps = null;
+        Connection conn = null;
+
+        try {
+            conn = Conexao.getConnection(); // Método para obter a conexão com o banco de dados
+            String sql = "INSERT INTO mensagens (Remetente_id, Destinatario_id, Mensagem) VALUES (?, ?, ?)";
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, mensagem.getRemetente_Id());
+            ps.setInt(2, mensagem.getDestinatario_Id());
+            ps.setString(3, mensagem.getMensagem());
+
+            ps.executeUpdate(); // Executa a operação de INSERT
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Você pode lançar uma exceção personalizada ou tratar o erro de outra forma, conforme necessário
+        } finally {
+            // Feche o PreparedStatement e a conexão no bloco finally para garantir que sejam liberados corretamente
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 }
 

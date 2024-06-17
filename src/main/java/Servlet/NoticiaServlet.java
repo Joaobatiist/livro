@@ -8,12 +8,14 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 @WebServlet (name = "NoticiaServlet", urlPatterns = {"/NoticiaServlet"})
 public class NoticiaServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
 
     }
 
@@ -45,8 +47,8 @@ public class NoticiaServlet extends HttpServlet {
 
         usuarioDao.cadastroNoticia(Noticia);
 
-        RequestDispatcher rd = req.getRequestDispatcher("/Page/admin.jsp");
-        rd.forward(req, resp);
+        resp.sendRedirect(req.getContextPath() + "/Page/admin.jsp");
 
     }
+
 }

@@ -21,6 +21,8 @@ public class Usuario {
     private String role;
     private String titulo;
     private String mensagem;
+    private int remetente_Id;
+    private int destinatario_Id;
 
     public String getCpf() {
         return cpf;
@@ -169,6 +171,23 @@ public class Usuario {
 
     public void setMensagem(String mensagem) {
         this.mensagem = mensagem;
+    }
+
+
+    public int getRemetente_Id() {
+        return remetente_Id;
+    }
+
+    public void setRemetente_Id(int remetente_Id) {
+        this.remetente_Id = remetente_Id;
+    }
+
+    public int getDestinatario_Id() {
+        return destinatario_Id;
+    }
+
+    public void setDestinatario_Id(int destinatario_Id) {
+        this.destinatario_Id = destinatario_Id;
     }
 }
 
